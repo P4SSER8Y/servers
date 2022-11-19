@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:v2.7
+    restart: always
+    container_name: traefik
+    network_mode: host
+    command: traefik --configFile /etc/traefik.yaml
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config.local/traefik.yaml:/etc/traefik.yaml:ro
+      - ./config.local/file_providers/:/etc/traefik/config/:ro
+      - ./config.local/acme.json:/etc/traefik/acme.json:rw
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  traefik:
+    external: true
