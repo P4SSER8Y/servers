@@ -1,26 +1,26 @@
 Server Collections
 ==================
 
-traefik
+001-traefik
 ---------
 reverse proxy
 
-whoami
+002-whoami
 ---------
 debug
 
-webdav
---------
-simple WebDAV server
-
-checkchan
+003-checkchan
 ---------
 periodicly check website and push messages
 
-nextcloud
+004-webdav
+--------
+simple WebDAV server
+
+005-nextcloud
 ---------
 complex file server
 
-wallabag
+006-wallabag
 ---------
 read-it-later server
