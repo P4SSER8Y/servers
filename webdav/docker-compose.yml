@@ -1,0 +1,29 @@
+version: '2'
+services:
+  webdav:
+    image: bytemark/webdav:latest
+    container_name: webdav
+    networks:
+      - traefik
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.services.webdav.loadbalancer.server.scheme=http"
+      - "traefik.http.services.webdav.loadbalancer.server.port=80"
+      - "traefik.http.routers.webdav.service=webdav"
+      - "traefik.http.routers.webdav.rule=${DOCKER_ROUTER_RULE}"
+    volumes:
+      - './data:/var/lib/dav:rw'
+      - './config.local/user.passwd:/user.passwd:ro'
+    environment:
+      TZ: Asia/Shanghai
+      LOCATION: /
+      AUTH_TYPE: Basic
+      REALM: hmmm
+    restart: unless-stopped
+
+networks:
+  traefik:
+    external: true
+
