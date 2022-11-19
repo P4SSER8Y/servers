@@ -1,0 +1,28 @@
+version: '2'
+services:
+  checkchan:
+    image: easychen/checkchan:latest
+    container_name: checkchan
+    networks:
+      - traefik
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.services.checkchan.loadbalancer.server.scheme=http"
+      - "traefik.http.services.checkchan.loadbalancer.server.port=80"
+      - "traefik.http.routers.checkchan.service=checkchan"
+      - "traefik.http.routers.checkchan.rule=${DOCKER_ROUTER_RULE}"
+    volumes:
+      - './data:/checkchan/data:rw'
+    environment:
+      ERROR_IMAGE: NORMAL
+      TZ: Asia/Shanghai
+      SNAP_FULL: 1
+      VNC: 'off'
+      API_KEY:
+
+networks:
+  traefik:
+    external: true
+
