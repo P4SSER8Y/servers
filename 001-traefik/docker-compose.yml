@@ -15,6 +15,7 @@ services:
       - ./config.local/acme.json:/etc/traefik/acme.json:rw
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
+    env_file: .env
 
 networks:
   traefik:
