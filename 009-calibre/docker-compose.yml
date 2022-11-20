@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  calibre-web:
+    image: linuxserver/calibre-web:latest
+    restart: unless-stopped
+    container_name: calibre-web
+    environment:
+      - TZ=Asia/Shanghai
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - DOCKER_MODS=linuxserver/calibre-web:calibre
+    networks:
+      - traefik
+    volumes:
+      - ${LIB_PATH}:/library:rw
+      - ./config.local:/config
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.calibre-web.entrypoints=${ENTRYPOINT}"
+      - "traefik.http.routers.calibre-web.rule=Host(`${HOSTNAME}`)"
+      - "traefik.http.services.calibre-web.loadbalancer.server.scheme=http"
+      - "traefik.http.services.calibre-web.loadbalancer.server.port=8083"
+
+networks:
+  traefik:
+    external: true
