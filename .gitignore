@@ -1,4 +1,7 @@
 .env
+.vscode
+.DS_Store
+@eaDir
 data
 config.local
 000-inbox/**
