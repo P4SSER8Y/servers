@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  iCloudPD:
+    image: boredazfcuk/icloudpd
+    container_name: iCloudPD
+    restart: unless-stopped
+    network_mode: host
+    env_file: .env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./data:/config:rw
+      - "${LOCAL_PATH}:/home/${user}/iCloud:rw"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
