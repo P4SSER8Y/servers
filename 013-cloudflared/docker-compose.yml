@@ -5,6 +5,8 @@ services:
     image: cloudflare/cloudflared:latest
     container_name: cloudflare
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - cloudflare
     environment:
