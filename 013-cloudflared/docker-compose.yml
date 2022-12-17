@@ -9,6 +9,7 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - cloudflare
+      - traefik
     environment:
       TZ: Asia/Shanghai
     command: tunnel --no-autoupdate run --token ${TOKEN}
@@ -17,4 +18,6 @@ services:
 
 networks:
   cloudflare:
+    external: true
+  traefik:
     external: true
