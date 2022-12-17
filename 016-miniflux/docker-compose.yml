@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  miniflux:
+    container_name: miniflux
+    image: miniflux/miniflux:latest
+    restart: unless-stopped
+    networks:
+      - traefik
+      - cloudflare
+    environment:
+      - BASE_URL=${BASE_URL}
+      - ARCHIVE_READ_DAYS=36500
+      - CLEANUP_FREQUENCY=36500
+      - RUN_MIGRATIONS=1
+      - CREATE_ADMIN=1
+      - ADMIN_USERNAME=${USERNAME}
+      - ADMIN_PASSWORD=${PASSWORD}
+      - PROXY_IMAGES=all
+      - DATABASE_URL=${POSTGRES_URL}
+
+networks:
+  traefik:
+    external: true
+  cloudflare:
+    external: true
