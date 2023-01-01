@@ -11,6 +11,8 @@ services:
       - traefik
     volumes:
       - ${DOCKER_DATA_PATH}:/var/lib/postgresql/data
+    ports:
+      - ${DOCKER_PORT}:5432
     environment:
       POSTGRES_USER:
       POSTGRES_PASSWORD:
