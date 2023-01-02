@@ -1,0 +1,27 @@
+version: '3.6'
+
+services:
+  flare:
+    image: soulteary/flare
+    restart: always
+    command: flare
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.flare.entrypoints=${DOCKER_ENTRYPOINTS}"
+      - "traefik.http.routers.flare.rule=${DOCKER_RULE}"
+      - "traefik.http.services.flare.loadbalancer.server.scheme=http"
+      - "traefik.http.services.flare.loadbalancer.server.port=5005"
+    networks:
+      - traefik
+    volumes:
+      - ./data:/app
+    environment:
+      FLARE_USER:
+      FLARE_PASS:
+      FLARE_DISABLE_LOGIN:
+
+networks:
+  traefik:
+    external: true
