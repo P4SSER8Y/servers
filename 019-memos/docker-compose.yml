@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  memos:
+    user: ${DOCKER_USER}
+    image: neosmemo/memos
+    container_name: memos
+    restart: unless-stopped
+    networks:
+      - cloudflare
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data:/var/opt/memos
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    ports:
+      - 5230:5230
+
+networks:
+  cloudflare:
+    external: true
