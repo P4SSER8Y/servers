@@ -2,7 +2,7 @@ version: '3'
 
 services:
   traefik:
-    image: traefik:v2.7
+    image: traefik:v2.10
     restart: always
     container_name: traefik
     network_mode: host
